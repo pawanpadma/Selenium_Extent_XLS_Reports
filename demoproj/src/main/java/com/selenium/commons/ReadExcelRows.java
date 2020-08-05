@@ -1,10 +1,7 @@
 package com.selenium.commons;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,7 +12,10 @@ public class ReadExcelRows {
 
 	public void abc(String sheet, String env, String columnName) {
 
-		File src = new File("C:\\Users\\PawanPadma\\Desktop\\Book1.xlsx");
+		
+		String filepath = "src/test/resources/ReadRows.xlsx";
+		filepath = System.getProperty("user.dir") + "/" + filepath;
+		File src = new File(filepath);
 
 		XSSFWorkbook wb = null;
 		try {

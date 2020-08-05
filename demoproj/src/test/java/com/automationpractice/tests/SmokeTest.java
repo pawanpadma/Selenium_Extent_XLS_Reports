@@ -2,6 +2,7 @@ package com.automationpractice.tests;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -18,8 +19,7 @@ import com.selenium.commons.ReadExcel;
 import com.selenium.reports.ExtentTestListner;
 import com.selenium.reports.Screenshot;
 
-
-@Listeners({ExtentTestListner.class,Screenshot.class})
+@Listeners({ ExtentTestListner.class, Screenshot.class })
 public class SmokeTest {
 
 	public WebDriver driver = Configuration.browser();
@@ -34,12 +34,12 @@ public class SmokeTest {
 		login = new LoginPage();
 		summary = new SummaryPage();
 		read = new ReadExcel();
-		
+
 	}
 
 	@BeforeSuite(alwaysRun = true)
 	public void invokeBrowser() {
-		
+
 		driver.get(Configuration.URL);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -50,6 +50,7 @@ public class SmokeTest {
 
 	@AfterSuite(alwaysRun = true)
 	public void closeBrowser() {
+		
 		driver.quit();
 	}
 
@@ -72,7 +73,8 @@ public class SmokeTest {
 	@Test(testName = "login_Positive", description = "login to app with valid credentials", timeOut = 190000, enabled = true, groups = {
 			"sanity", "2" }, priority = 2)
 	public void login_positive() {
-		Assert.assertTrue(false);
+		Assert.assertTrue(true);
+		driver.findElement(By.xpath("//div[@id='sdsds']")).click();
 		/*
 		 * home.logoutOfAPP(); home.tapSignin();
 		 * login.loginToAPP(Configuration.username, Configuration.password);

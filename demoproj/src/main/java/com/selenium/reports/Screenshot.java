@@ -10,6 +10,7 @@ import jxl.write.WriteException;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -18,11 +19,12 @@ import org.testng.TestListenerAdapter;
 import org.testng.annotations.Test;
 
 import com.selenium.commons.CommonCode;
+import com.selenium.commons.Configuration;
 
 public class Screenshot extends TestListenerAdapter {
 	
 	public final String ESCAPE_PROPERTY = "org.uncommons.reportng.escape-output";	
-	 public static ThreadLocal<RemoteWebDriver> driver = null;
+	 public static WebDriver driver = Configuration.browser();
 	public DataSheet ds ;
 	public CommonCode common;
 	public int i=1;

@@ -8,9 +8,11 @@ import org.testng.Assert;
 
 import com.selenium.commons.Configuration;
 import com.selenium.commons.ReadExcel;
+import com.selenium.reports.ExtentTestManager;
 
 public class LoginPage {
 
+	//public ExtentTestManager extent =new ExtentTestManager();
 	public WebDriver driver = Configuration.browser();
 	public ReadExcel read;
 
@@ -34,6 +36,7 @@ public class LoginPage {
 	}
 
 	public void loginToAPP(String username, String password) {
+		//extent.logStatus("entering text is email text box");
 		emailTextBox.clear();
 		emailTextBox.sendKeys(username);
 		passwordTextBox.clear();

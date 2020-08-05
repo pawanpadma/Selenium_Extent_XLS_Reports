@@ -33,5 +33,11 @@ public class ExtentTestManager {
         // Log test status
         test.info(msg);
     }
+    
+    public void logError (Throwable msg){
+
+        // Log test status
+        test.error(msg);
+    }
 
 }

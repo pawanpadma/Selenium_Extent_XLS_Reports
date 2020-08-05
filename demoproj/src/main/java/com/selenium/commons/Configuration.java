@@ -13,6 +13,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.Reporter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -25,89 +26,80 @@ public class Configuration {
 	public static String filepath;
 	public static FileInputStream in;
 	public static String URL;
-	
+
 	public static String Browser;
-	public static  WebDriver driver;
+	public static WebDriver webdriver;
+	public static WebDriver driver;
 	public static String username;
 	public static String password;
-	
 
 	public static WebDriver browser() {
-		Reporter.log("in browser loop",true);
-		
+		Reporter.log("in browser loop", true);
+
 		if (Browser.equalsIgnoreCase("firefox")) {
-			if(driver==null){
+			if (webdriver == null) {
 				WebDriverManager.firefoxdriver().setup();
-				driver = new FirefoxDriver();
-				}
-				else 
-					return driver;
-			
-		}
-		
-		
-		
-		else if (Browser.equalsIgnoreCase("ie")) {
-			if(driver==null){
-			String filepath = "src/test/resources/IEDriverServer.exe";
-			filepath = System.getProperty("user.dir") + "/" + filepath;
-			File file = new File(filepath);
-			System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
-			driver = new InternetExplorerDriver();
-			}
-			else 
+				webdriver = new FirefoxDriver();
+				 driver = new EventFiringWebDriver(webdriver).register(new WebDriverListner());
+				 
+				//WebDriverListner handler = new WebDriverListner();
+				//driver.register(handler);
+			} else
 				return driver;
 
-			
 		}
-		else if (Browser.equalsIgnoreCase("chrome")) {
-			if(driver==null){
-			WebDriverManager.chromedriver().setup();
 
-			driver = new ChromeDriver();
-			}
-			else 
-				return driver;
-		}
-		else if (Browser.equalsIgnoreCase("safari")) {
-			if(driver==null)
-			driver = new SafariDriver();
-			return driver;
-		}
+		/*else if (Browser.equalsIgnoreCase("ie")) {
+			if (webdriver == null) {
+				String filepath = "src/test/resources/IEDriverServer.exe";
+				filepath = System.getProperty("user.dir") + "/" + filepath;
+				File file = new File(filepath);
+				System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
+				webdriver = new InternetExplorerDriver();
+			} else
+				return webdriver;
+
+		}*/ else if (Browser.equalsIgnoreCase("chrome")) {
+			if (webdriver == null) {
+				WebDriverManager.chromedriver().setup();
+
+				webdriver = new ChromeDriver();
+				 driver = new EventFiringWebDriver(webdriver).register(new WebDriverListner());
+				
+			} else
+				return webdriver;
+		} /*else if (Browser.equalsIgnoreCase("safari")) {
+			if (webdriver == null)
+				webdriver = new SafariDriver();
+			return webdriver;
+		}*/
 		return driver;
-	
 
 	}
 
 	static {
 		try {
-			 if (System.getProperty("EnvType")==null) {
+			if (System.getProperty("EnvType") == null) {
 				filepath = "src/test/resources/QA-environment.properties";
-				in = new FileInputStream(System.getProperty("user.dir") + "/"
-						+ filepath);
+				in = new FileInputStream(System.getProperty("user.dir") + "/" + filepath);
 				properties.load(in);
 				Reporter.log("in properties qa loop", true);
 
-			}
-		else if (System.getProperty("EnvType").equalsIgnoreCase("qa")) {
+			} else if (System.getProperty("EnvType").equalsIgnoreCase("qa")) {
 				filepath = "src/test/resources/QA-environment.properties";
-				in = new FileInputStream(System.getProperty("user.dir") + "/"
-						+ filepath);
+				in = new FileInputStream(System.getProperty("user.dir") + "/" + filepath);
 				properties.load(in);
 				Reporter.log("in properties qa loop", true);
 
 			} else if (System.getProperty("EnvType").equalsIgnoreCase("dev")) {
 				filepath = "src/test/resources/dev-environment.properties";
-				in = new FileInputStream(System.getProperty("user.dir") + "/"
-						+ filepath);
+				in = new FileInputStream(System.getProperty("user.dir") + "/" + filepath);
 				properties.load(in);
 				Reporter.log("in properties qa loop", true);
 
-			}
-			else if (System.getProperty("EnvType").equalsIgnoreCase("staging")) {
+			} else if (System.getProperty("EnvType").equalsIgnoreCase("staging")) {
 				filepath = "src/test/resources/staging-environment.properties";
-				in = new FileInputStream(System.getProperty("user.dir") + "/"
-						+ filepath);
+				in = new FileInputStream(System.getProperty("user.dir") + "/" + filepath);
 				properties.load(in);
 				Reporter.log("in properties qa loop", true);
 
@@ -117,7 +109,7 @@ public class Configuration {
 		}
 
 		URL = properties.getProperty("url");
-		
+
 		Browser = properties.getProperty("Browser");
 		username = properties.getProperty("username");
 		password = properties.getProperty("password");
@@ -125,17 +117,15 @@ public class Configuration {
 	}
 
 	public static String LoginURL() {
-		Reporter.log("URL is"+URL, true);
+		Reporter.log("URL is" + URL, true);
 		return URL;
 
 	}
 
-
-
-	/*public  WebDriver getDriver() {
-		// TODO Auto-generated method stub
-  
-		return driver;
-	}*/
+	/*
+	 * public WebDriver getDriver() { // TODO Auto-generated method stub
+	 * 
+	 * return driver; }
+	 */
 
 }
