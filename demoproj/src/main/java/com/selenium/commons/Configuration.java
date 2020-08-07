@@ -1,18 +1,11 @@
 package com.selenium.commons;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.Reporter;
 
@@ -29,7 +22,7 @@ public class Configuration {
 
 	public static String Browser;
 	public static WebDriver webdriver;
-	public static WebDriver driver;
+	//public static WebDriver driver;
 	public static String username;
 	public static String password;
 
@@ -40,12 +33,12 @@ public class Configuration {
 			if (webdriver == null) {
 				WebDriverManager.firefoxdriver().setup();
 				webdriver = new FirefoxDriver();
-				 driver = new EventFiringWebDriver(webdriver).register(new WebDriverListner());
+				webdriver = new EventFiringWebDriver(webdriver).register(new WebDriverListner());
 				 
 				//WebDriverListner handler = new WebDriverListner();
 				//driver.register(handler);
 			} else
-				return driver;
+				return webdriver;
 
 		}
 
@@ -64,7 +57,7 @@ public class Configuration {
 				WebDriverManager.chromedriver().setup();
 
 				webdriver = new ChromeDriver();
-				 driver = new EventFiringWebDriver(webdriver).register(new WebDriverListner());
+				webdriver = new EventFiringWebDriver(webdriver).register(new WebDriverListner());
 				
 			} else
 				return webdriver;
@@ -73,7 +66,7 @@ public class Configuration {
 				webdriver = new SafariDriver();
 			return webdriver;
 		}*/
-		return driver;
+		return webdriver;
 
 	}
 

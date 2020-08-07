@@ -19,6 +19,7 @@ import com.selenium.reports.ExtentTestManager;
 
 public class WebDriverListner implements WebDriverEventListener {
 	public ExtentTestManager extent =new ExtentTestManager();
+	
 
 	@Override
 	public void beforeAlertAccept(WebDriver driver) {
@@ -95,7 +96,7 @@ public class WebDriverListner implements WebDriverEventListener {
 	@Override
 	public void beforeFindBy(By by, WebElement element, WebDriver driver) {
 		System.out.println("iam in exception listner");
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(10))
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(50))
 				.pollingEvery(Duration.ofSeconds(1)).ignoring(NoSuchElementException.class)
 				.ignoring(ElementNotInteractableException.class)
 				.ignoring(ElementNotVisibleException.class)

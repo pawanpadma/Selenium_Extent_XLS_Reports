@@ -34,7 +34,7 @@ public class HomePage {
 	@FindBy(className = "logo")
 	private WebElement homeLogo;
 
-	@FindBy(id = "search_query_top")
+	@FindBy(id = "search_query_top1")
 	private WebElement searchTextBox;
 
 	@FindBy(name = "submit_search")
